@@ -1,6 +1,9 @@
-FROM node:9.8-alpine
+FROM node:10.12-alpine
 
-ARG VERSION=0.1.0
+ARG VERSION=0.1.1
+ARG UID=1000
+ARG GID=1000
+ARG USERNAME=node
 
 LABEL maintainer="rado.salov@gmail.com" \
     version="${VERSION}" \
@@ -19,9 +22,12 @@ RUN apk update && apk upgrade && \
     gem install sass compass --no-ri --no-rdoc && \
     apk del build-base libffi-dev ruby-dev && \
     rm -rf /var/cache/apk/* && \
+    deluser --remove-home node && \
+    addgroup -S ${USERNAME} -g ${GID} && \
+    adduser -S -G ${USERNAME} -u ${UID} ${USERNAME} && \
     mkdir -p /app
 
-USER node
+USER ${USERNAME}
 
 WORKDIR /app
 
