@@ -1,5 +1,5 @@
 NS ?= docker.io/rammstein4o
-VERSION ?= 0.1.1
+VERSION ?= 0.1.2
 
 IMAGE_NAME ?= nodejs-image
 CONTAINER_NAME ?= nodejs
